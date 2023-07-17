@@ -32,10 +32,12 @@ class AdapterCart(private val datos: List<Producto>) : RecyclerView.Adapter<Adap
     inner class TuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textNombre: TextView= itemView.findViewById(R.id.textNombreModel)
         private val textPrecio: TextView=itemView.findViewById(R.id.textPrecioModel)
+        private val textCantidad: TextView=itemView.findViewById(R.id.textCantidad)
         private val imagenModel: ImageView=itemView.findViewById(R.id.imageCartModel)
         fun bind(item: Producto) {
             textNombre.text=item.nombre
             textPrecio.text=item.precio.toString()
+            textCantidad.text=item.cantidad.toString()
             Glide.with(itemView).load(item.urlImagen).into(imagenModel)
         }
     }

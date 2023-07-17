@@ -37,6 +37,7 @@ class ItemFragment : Fragment() {
             val url=argument.getString("url")
             val name=argument.getString("nombre")
             val price=argument.getInt("precio")
+            val cant=argument.getInt("cantidad")
             textoNombre.text=name
             itemBinding.textPrecio.text=price.toString()
             Glide.with(this).load(url).into(itemBinding.imageViewItem)
@@ -45,6 +46,7 @@ class ItemFragment : Fragment() {
             bundle.putString("url",url)
             bundle.putString("nombre",name)
             bundle.putInt("precio",price)
+            bundle.putInt("cantidad",cant+1)
         }
         val botonVolver=itemBinding.botonItemVolver
         botonVolver.setOnClickListener { view->

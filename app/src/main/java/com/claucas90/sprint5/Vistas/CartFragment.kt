@@ -46,7 +46,8 @@ class CartFragment : Fragment() {
         // Inflate the layout for this fragment
         cartBinding= FragmentCartBinding.inflate(inflater, container, false)
         textoTotal=cartBinding.textTotal
-          val botoncito=cartBinding.botonItemVolver
+        cargarRecicler(cartBinding.root)
+        val botoncito=cartBinding.botonItemVolver
         val botonFinal=cartBinding.botonPagar
 
         botonFinal.setOnClickListener{view->
@@ -67,28 +68,43 @@ class CartFragment : Fragment() {
         return cartBinding.root
     }
 
-       fun volverMain(){
+    fun cargarRecicler(view:View){
+        recyclerView = view.findViewById(R.id.recyclerViewCart)
+        recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
+        lista.addAll(llenadoLista.llenarLista(this.requireContext()))
+        for (objeto in lista){
+
+            if(objeto.cantidad>0){
+                total += (objeto.precio * objeto.cantidad)
+                listaFinal.add(objeto)
+            }
+        }
+        textoTotal.text=total.toString()
+        itemAdapter = AdapterCart(listaFinal)
+
+        recyclerView.adapter = itemAdapter
+    }
+
+    fun volverMain(){
         navController = requireActivity().findNavController(R.id.navHostFragmentView)
 
         navController.navigate(R.id.action_cartFragment_to_viewFragment)
 
     }
     fun vaciarCarro(){
-        val producto1= Producto("https://example.com/zapato1.jpg","zapato 1",9999)
-        val producto2= Producto("https://example.com/zapato2.jpg","Zapato 2",7999)
-        val producto3= Producto("https://example.com/zapato3.jpg","Zapato 3",14999)
-        val producto4= Producto("https://example.com/zapato4.jpg","Zapato 4",12999)
-        val producto5= Producto("https://example.com/zapato5.jpg","zapato 5",10999)
-        val producto6= Producto("https://example.com/zapato6.jpg","Zapato 6",8999)
-        val producto7= Producto("https://example.com/zapato7.jpg","Zapato 7",19999)
-        val producto8= Producto("https://example.com/zapato8.jpg","Zapato 8",16999)
-        val producto9= Producto("https://example.com/zapato9.jpg","Zapato 9",11999)
-        val producto10= Producto("https://example.com/zapato10.jpg","Zapato 10",14999)
+        val producto1= Producto("https://static.dafiti.cl/p/adidas-performance-3235-5291051-1-zoom.jpg","zapato 1",1990,0)
+        val producto2= Producto("https://static.dafiti.cl/p/tommy-hilfiger-8770-5052102-1-catalog-new.jpg","Zapato 2",2990,0)
+        val producto3= Producto("https://static.dafiti.cl/p/the-hills-8601-7984251-1-catalog-new.jpg","Zapato 3",3990,0)
+        val producto4= Producto("https://static.dafiti.cl/p/gotta-9594-443287-1-catalog-new.jpg","Zapato 4",4990,0)
+        val producto6= Producto("https://static.dafiti.cl/p/danicolle-8713-0528702-1-catalog-new.jpg","Zapato 6",6990,0)
+        val producto7= Producto("https://static.dafiti.cl/p/azaleia-8177-9755202-1-catalog-new.jpg","Zapato 7",7990,0)
+        val producto8= Producto("https://static.dafiti.cl/p/the-hills-4983-3984251-1-catalog-new.jpg","Zapato 8",8990,0)
+        val producto9= Producto("https://static.dafiti.cl/p/the-hills-4925-5984251-1-catalog-new.jpg","Zapato 9",9990,0)
+        val producto10= Producto("https://static.dafiti.cl/p/adidas-sportswear-3371-8907591-1-catalog-new.jpg","Zapato 10",10990,0)
         guardardatos(producto1)
         guardardatos(producto2)
         guardardatos(producto3)
         guardardatos(producto4)
-        guardardatos(producto5)
         guardardatos(producto6)
         guardardatos(producto7)
         guardardatos(producto8)
@@ -102,6 +118,7 @@ class CartFragment : Fragment() {
         bundle.putString("url",objeto.urlImagen)
         bundle.putString("nombre",objeto.nombre)
         bundle.putInt("precio",objeto.precio)
+        bundle.putInt("cantidad",objeto.cantidad)
         itemPresenter.guardarItem(bundle)
     }
 

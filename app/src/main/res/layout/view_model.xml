@@ -21,13 +21,14 @@
             android:id="@+id/imageViewModel"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            tools:srcCompat="@tools:sample/backgrounds/scenic"
+            android:importantForAccessibility="no" />
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="nombre"
+            android:text="@string/nombre"
             android:textSize="16sp"
             android:textStyle="bold" />
         <TextView
@@ -35,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="precio"
+            android:text="@string/precio"
             android:textSize="14sp" />
 
     </LinearLayout>
